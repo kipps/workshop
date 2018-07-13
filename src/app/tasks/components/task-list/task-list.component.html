@@ -1,6 +1,16 @@
-<app-task
-        *ngFor="let task of tasks"
-        [task]="task"
-        (completeTask)="onCompleteTask($event)"
-        (editTask)="onEditTask($event)">
-</app-task>
+<div>
+    <button class="btn btn-primary"
+        (click)="onCreateTask()">New Task</button>
+    <br><br>
+    <p *ngIf="(tasksState$ | async).error as value">{{value}}</p>
+    <app-task *ngFor='let task of (tasksState$ | async).data'
+      [task]="task"
+      (completeTask)="onCompleteTask($event)"
+      (editTask)="onEditTask($event)"
+      (deleteTask)="onDeleteTask($event)">
+    </app-task>
+</div>
+
+
+
+

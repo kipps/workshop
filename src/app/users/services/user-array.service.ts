@@ -21,11 +21,10 @@ export class UserArrayService {
   }
 
   getUser(id: number | string): Observable<User> {
-    return this.getUsers()
-        .pipe(
-            map((users: Array<User>) => users.find(user => user.id === +id)),
-            catchError(err => throwError('Error in getUser method'))
-        );
+    return this.getUsers().pipe(
+      map((users: Array<User>) => users.find(user => user.id === +id)),
+      catchError(err => throwError('Error in getUser method'))
+    );
   }
 
   addUser(user: User): void {

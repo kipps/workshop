@@ -1,16 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {StoreModule} from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
-import { TasksRoutingModule } from './tasks-routing.module';
-import { FormsModule } from '@angular/forms';
-import { TaskListComponent, TaskFormComponent, TaskComponent } from '.';
+import {TasksEffects, tasksReducer} from './../core/+store';
+
+import {TasksRoutingModule} from './tasks-routing.module';
+import {
+TaskComponent,
+TaskFormComponent,
+TaskListComponent,
+TaskPromiseService,
+} from '.';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    TasksRoutingModule
-  ],
-  declarations: [TaskListComponent, TaskComponent, TaskFormComponent]
+    declarations: [TaskListComponent, TaskFormComponent, TaskComponent],
+    imports: [CommonModule, FormsModule, TasksRoutingModule,
+        StoreModule.forFeature('tasks', tasksReducer),
+        EffectsModule.forFeature([TasksEffects])],
+    providers: [TaskPromiseService]
 })
-export class TasksModule { }
+export class TasksModule {
+}

@@ -15,15 +15,14 @@ const taskListPromise = Promise.resolve(taskList);
   providedIn: 'root' // TasksModule
 })
 export class TaskArrayService {
-
   getTasks(): Promise<Task[]> {
     return taskListPromise;
   }
 
   getTask(id: number | string): Promise<Task> {
     return this.getTasks()
-        .then(tasks => tasks.find(task => task.id === +id))
-        .catch(() => Promise.reject('Error in getTask method'));
+      .then(tasks => tasks.find(task => task.id === +id))
+      .catch(() => Promise.reject('Error in getTask method'));
   }
 
   addTask(task: Task): void {

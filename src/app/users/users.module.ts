@@ -1,17 +1,29 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
-import { UsersRoutingModule } from './users-routing.module';
-import { UserComponent, UserArrayService, usersRouterComponents} from '.';
+import { SharedModule } from '../shared/shared.module';
+import { UsersRoutingModule, usersRouterComponents } from './users-routing.module';
+
+import { UserComponent, UserArrayService, UserObservableService, UserResolveGuard } from '.';
+import { UsersAPIProvider } from './users.config';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    SharedModule
   ],
-  declarations: [usersRouterComponents, UserComponent],
-  providers: [UserArrayService]
+  declarations: [
+    usersRouterComponents,
+    UserComponent,
+  ],
+  providers: [
+    UserArrayService,
+    UserObservableService,
+    UsersAPIProvider,
+    UserResolveGuard
+  ]
 })
-export class UsersModule { }
+export class UsersModule {}
