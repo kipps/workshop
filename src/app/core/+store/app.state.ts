@@ -1,5 +1,7 @@
-import { TasksState } from './tasks/tasks.state';
+import {TasksState} from './tasks/tasks.state';
+import {UsersState} from './users';
 
 export interface AppState {
-    tasks: TasksState;
+  tasks: TasksState;
+  users: UsersState;
 }

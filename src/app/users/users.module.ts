@@ -7,13 +7,16 @@ import { UsersRoutingModule, usersRouterComponents } from './users-routing.modul
 
 import { UserComponent, UserArrayService, UserObservableService, UserResolveGuard } from '.';
 import { UsersAPIProvider } from './users.config';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersEffects } from '../core/+store/users/users.effects';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     UsersRoutingModule,
-    SharedModule
+    SharedModule,
+    EffectsModule.forFeature([UsersEffects])
   ],
   declarations: [
     usersRouterComponents,

@@ -5,7 +5,7 @@ import { Task } from './../models/task.model';
 
 @Injectable()
 export class TaskPromiseService {
-  private tasksUrl = 'http://localhost:3000/tasksgit ';
+  private tasksUrl = 'http://localhost:3000/tasks';
 
   constructor(private http: HttpClient) {}
 

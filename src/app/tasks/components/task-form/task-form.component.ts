@@ -1,47 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
+import {Store, select} from '@ngrx/store';
+import {AppState, getSelectedTaskByUrl} from './../../../core/+store';
+import * as TasksActions from './../../../core/+store/tasks/tasks.actions';
 
-// rxjs
-import { switchMap } from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {AutoUnsubscribe} from './../../../core';
 
-import { Task } from './../../models/task.model';
-import { TaskPromiseService } from './../../services';
+import {Task} from './../../models/task.model';
 
 @Component({
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.css']
 })
+
+@AutoUnsubscribe()
 export class TaskFormComponent implements OnInit {
   task: Task;
 
+  private sub: Subscription;
+
   constructor(
-    private taskPromiseService: TaskPromiseService,
     private location: Location,
-    private route: ActivatedRoute
-  ) {}
+    private store: Store<AppState>
+  ) {
+  }
 
   ngOnInit(): void {
-    this.task = new Task(null, '', null, null);
-
-    this.route.paramMap
-      .pipe(
-        switchMap((params: Params) => {
-          return params.get('taskID')
-            ? this.taskPromiseService.getTask(+params.get('taskID'))
-            : Promise.resolve(null);
-        })
-      )
-      .subscribe(task => (this.task = { ...task }), err => console.log(err));
+    this.sub = this.store
+      .pipe(select(getSelectedTaskByUrl))
+      .subscribe(task => this.task = task);
   }
 
   onSaveTask() {
-    const task = { ...this.task };
+    const task = {...this.task};
+    if (task.id) {
+      this.store.dispatch(new TasksActions.UpdateTask(task));
+    } else {
+      this.store.dispatch(new TasksActions.CreateTask(task));
+    }
 
-    const method = task.id ? 'updateTask' : 'createTask';
-    this.taskPromiseService[method](task)
-      .then(() => this.goBack())
-      .catch(err => console.log(err));
+
   }
 
   goBack(): void {
