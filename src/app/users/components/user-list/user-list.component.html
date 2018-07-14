@@ -1,4 +1,5 @@
-<app-user 
+<p *ngIf="(usersError$ | async) as errorMessage">{{errorMessage}}</p>
+<app-user
   *ngFor='let user of users$ | async' 
   [user]="user"
   [class.edited]="isEdited(user)"

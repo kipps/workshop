@@ -49,11 +49,6 @@
   ],
   "users": [
     {
-      "id": 1,
-      "firstName": "Anna",
-      "lastName": "Borisova"
-    },
-    {
       "id": 2,
       "firstName": "Boris",
       "lastName": "Vlasov"
@@ -62,6 +57,21 @@
       "id": 3,
       "firstName": "Gennadiy",
       "lastName": "Dmitriev"
+    },
+    {
+      "firstName": "MyUser",
+      "lastName": "Dulla",
+      "id": 4
+    },
+    {
+      "firstName": "HahaUser",
+      "lastName": "Dullay",
+      "id": 5
+    },
+    {
+      "firstName": "TestUser",
+      "lastName": "Users!!!",
+      "id": 6
     }
   ]
 }
